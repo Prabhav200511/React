@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Background color changer</h1>
+    <button class = "start">Start</button>
+    <button class = "stop">Stop</button>
+</body>
+<script>
+    getRanColor = function(){
+        const letter = "123456789ABCDEF";
+        var color = "#";
+        for(var i=0;i<6;i++){
+            color +=letter[Math.floor(Math.random()*15)];
+        }
+        return color;
+    }
+
+
+    var changecolor;
+    const startimer = function(){
+        if(!changecolor)
+            changecolor = setInterval(changebg,500);
+    }
+    
+    const changebg = function(){
+        var random_color = getRanColor();
+        document.body.style.backgroundColor = random_color;
+        console.log(random_color);
+    }
+
+    const stoptimer = function(){
+        clearInterval(changecolor);
+        changecolor=null;
+    }
+
+    document.body.querySelector(".start").addEventListener('click',startimer);
+    document.body.querySelector(".stop").addEventListener('click',stoptimer);
+</script>
+</html>
