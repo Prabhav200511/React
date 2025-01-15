@@ -1,15 +1,21 @@
 import React from 'react'
 import {useState,useRef} from 'react'
+import { useNavigate } from 'react-router'
 import dice_one from '../assets/one.svg'
 import dice_two from '../assets/two.svg'
 import dice_three from '../assets/three.svg'
 import dice_four from '../assets/four.svg'
 import dice_five from '../assets/five.svg'
 import dice_six from '../assets/six.svg'
+import Rules from './Rules'
 
 const dice = [dice_one, dice_two, dice_three, dice_four, dice_five, dice_six];
 
+
+
 function Game() {
+
+    const [showRules, setShowRules] = useState(false);
     const [score,setScore] = useState(0);
     const [image,setImage] = useState(dice[0]);
     const number = useRef(null);
@@ -30,7 +36,7 @@ function Game() {
             const random = Math.floor(Math.random()*6);
             setImage(dice[random]);
             if(random+1 === parseInt(number.current)){
-                setScore(score+parseInt(number.current));
+                setScore(score+1);
             }
         }
         else{
@@ -49,6 +55,12 @@ function Game() {
         setImage(dice[0]);
         number.current = null;
         selected.current = false;
+        let htlmColl = document.querySelector('.Nums').children;
+        let arr = Array.from(htlmColl);
+        arr.forEach((element)=>{
+            element.style.backgroundColor = 'white';
+            element.style.color = 'black';
+        });
     }
 
   return (
@@ -58,8 +70,8 @@ function Game() {
                 <p className='text-5xl font-semibold'>{score}</p>
                 <p className='text-bold'>Total Score</p>
             </div>
-            <div className='flex flex-col items-center' class="division">
-                <div>
+            <div className='flex flex-col items-center division' >
+                <div className = "Nums">
                     <button className='border-black border-2 py-3 px-5 m-2 text-black bg-white font-bold' onClick={selectNumber}>1</button>
                     <button className='border-black border-2 py-3 px-5 m-2 text-black bg-white font-bold' onClick={selectNumber}>2</button>
                     <button  className='border-black border-2 py-3 px-5 m-2 text-black bg-white font-bold' onClick={selectNumber}>3</button>
@@ -79,9 +91,10 @@ function Game() {
             </div>
             <div className='flex flex-col m-5'>
                 <button className='m-2 border-black border-2 px-5 text-black font-semibold' onClick={resetScore}>Reset Score</button>
-                <button className='m-2 bg-black text-white py-1'>Show Rules</button>
+                <button className='m-2 bg-black text-white py-1' onClick={() => setShowRules((prev) => !prev)}>Show Rules</button>
             </div>
         </div>
+        {showRules && <Rules />}
     </div>
   )
 }

@@ -6,6 +6,7 @@ import dice_five from './assets/five.svg'
 import dice_six from './assets/six.svg'
 import Start from './componets/Start.jsx'
 import Game from './componets/Game.jsx'
+import Rules from './componets/Rules.jsx'
 import {createBrowserRouter,RouterProvider} from 'react-router-dom'
 
 
@@ -18,10 +19,6 @@ let router = createBrowserRouter([
     path: "/game",
     element: <Game/>
   },
-  // {
-  //   path: "/rules",
-  //   element: <Rules />
-  // }
 ]);
 
 const dice = [dice_one, dice_two, dice_three, dice_four, dice_five, dice_six];
